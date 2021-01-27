@@ -1,16 +1,16 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: jd_unsubscribe
+name: 京东取消关注
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '45 15 * * *'
   watch:
-        types: [started]
+      types: [started]
     repository_dispatch:
-        types: jd_nian
+        types: jd_unsubscribe
 
 jobs:
     build:
@@ -23,13 +23,11 @@ jobs:
               with:
                   node-version: 10.x
             - name: npm install
-        run: |
-          cd ~/jd_scripts
-          npm install
-      - name: '运行 【京东取关商品】'
-        run: |
-          cd ~/jd_scripts
-          node jd_unsubscribe.js
+              run: |
+                  npm install
+            - name: "运行 【京东取消关注】"
+              run: |
+                  node jd_unsubscribe.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
